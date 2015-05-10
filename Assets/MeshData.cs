@@ -21,4 +21,9 @@ public interface MeshData
     {
         get;
     }
+
+    int[] Triangles
+    {
+        get;
+    }
 }
