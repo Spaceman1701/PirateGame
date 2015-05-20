@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DiamondSquareGenerator : HeightMapGenerator
+public class DiamondSquareGenerator : MonoBehaviour
 {
 
     private HeightMap map;
@@ -10,20 +10,25 @@ public class DiamondSquareGenerator : HeightMapGenerator
 
     public float roughness;
 
+    public int size;
+
     private int max;
 
-
-    public void Start()
+    void Start()
     {
-        map = HeightMap;
+        GenerateMap();
     }
 
-    public override void GenerateMap()
+    public void GenerateMap()
     {
-        Random.seed = 10;
-        max = map.Size - 1;
+        //Random.seed = 10;
+
+        map = new HeightMap();
+
+        max = size - 1;
         Divide(max);
-        map.Init();
+
+        map.Build();
     }
 
     private void Divide(int size)
@@ -78,9 +83,14 @@ public class DiamondSquareGenerator : HeightMapGenerator
     private void SetCorners()
     {
         map.SetValue(0, 0, max / 2);
-        map.SetValue(0, map.Size - 1, max / 2);
-        map.SetValue(map.Size - 1, 0, max / 2);
-        map.SetValue(map.Size - 1, map.Size - 1, max / 2);
+        map.SetValue(0, max, max / 2);
+        map.SetValue(max, 0, max / 2);
+        map.SetValue(max, max, max / 2);
+    }
+
+    private float NextFloat()
+    {
+        return Random.Range(0.0f, 1.0f);
     }
 
 
